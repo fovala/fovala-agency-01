@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+:root {
+  --color-midnight: #13152A;
+  --color-deep-black: #0D0E1B;
+  --color-ivory: #F3F1F8;
+  --color-violet: #7554D9;
+  --color-electric-blue: #568DEB;
+  --color-soft-lavender: #B9A6FF;
+  --color-periwinkle: #9EB8FF;
+  --color-silver: #B8B9C5;
+}
+
+@layer base {
+  html {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #0D0E1B;
+    color: #F3F1F8;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: #0D0E1B;
+  }
+
+  button,
+  a,
+  [role="button"] {
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.font-serif-display {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.font-sans-ui {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.text-gradient-lavender {
+  background: linear-gradient(125deg, #F3F1F8 0%, #B9A6FF 42%, #9EB8FF 72%, #568DEB 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-violet-dark {
+  background: linear-gradient(125deg, #9EB8FF 0%, #B9A6FF 48%, #568DEB 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Unified Hero-matched luxury midnight surfaces */
+.bg-luxury-dark {
+  background-color: #0D0E1B;
+  background-image:
+    radial-gradient(ellipse 65% 58% at 72% 45%, rgba(86, 141, 235, 0.14), transparent 72%),
+    radial-gradient(ellipse 55% 48% at 22% 78%, rgba(117, 84, 217, 0.13), transparent 72%);
+}
+
+.bg-luxury-ivory {
+  background-color: #111326;
+  background-image:
+    radial-gradient(ellipse 68% 55% at 85% 20%, rgba(158, 184, 255, 0.16), transparent 68%),
+    radial-gradient(ellipse 60% 50% at 15% 85%, rgba(117, 84, 217, 0.15), transparent 68%);
+}
+
+/* Continuous horizontal marquee for platforms ribbon */
+@keyframes platformMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-platform-marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: platformMarquee 30s linear infinite;
+}
+
+/* Global luminous gradient underglow on all interactive buttons (desktop hover + mobile active/focus) */
+@layer components {
+  button:not(:disabled):not([aria-label*="Close"]):is(:hover, :active, :focus-visible),
+  [role="button"]:not([aria-disabled="true"]):is(:hover, :active, :focus-visible) {
+    box-shadow:
+      0 12px 30px -6px rgba(86, 141, 235, 0.44),
+      0 6px 20px -4px rgba(117, 84, 217, 0.52),
+      0 0 0 1px rgba(185, 166, 255, 0.42);
+  }
+
+  /* Enhanced interactive card & module glow: perimeter gradient border + underglow + top-right corner radial sheen */
+  .fx-glow-card {
+    position: relative;
+    transition:
+      transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 280ms ease,
+      box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .fx-glow-card::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(
+        circle at 90% 10%,
+        rgba(158, 184, 255, 0.24) 0%,
+        rgba(117, 84, 217, 0.2) 28%,
+        transparent 62%
+      ),
+      radial-gradient(
+        ellipse 80% 42% at 50% 100%,
+        rgba(86, 141, 235, 0.24) 0%,
+        rgba(185, 166, 255, 0.14) 45%,
+        transparent 75%
+      );
+    opacity: 0;
+    transition: opacity 300ms ease;
+    z-index: 1;
+  }
+
+  .fx-glow-card::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    bottom: -1px;
+    height: 2px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #568DEB 25%,
+      #B9A6FF 50%,
+      #7554D9 75%,
+      transparent 100%
+    );
+    opacity: 0;
+    filter: blur(0.4px);
+    transition: opacity 300ms ease;
+    z-index: 2;
+  }
+
+  .fx-glow-card:is(:hover, :active, :focus-visible)::before,
+  .fx-glow-card:is(:hover, :active, :focus-visible)::after,
+  .fx-glow-card[data-active="true"]::before,
+  .fx-glow-card[data-active="true"]::after {
+    opacity: 1;
+  }
+
+  .fx-glow-card:is(:hover, :active, :focus-visible) {
+    border-color: rgba(185, 166, 255, 0.56);
+    box-shadow:
+      0 18px 44px -8px rgba(86, 141, 235, 0.36),
+      0 10px 28px -4px rgba(117, 84, 217, 0.48),
+      0 0 0 1px rgba(158, 184, 255, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
+
+  /* Enhanced pill/action button glow with subtle top-right gradient sheen & bottom light rim */
+  .fx-glow-btn {
+    position: relative;
+    overflow: hidden;
+    transition:
+      transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 240ms ease,
+      box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 240ms ease;
+  }
+
+  .fx-glow-btn::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at 88% 15%,
+      rgba(158, 184, 255, 0.2) 0%,
+      rgba(117, 84, 217, 0.14) 38%,
+      transparent 72%
+    );
+    opacity: 0;
+    transition: opacity 260ms ease;
+  }
+
+  .fx-glow-btn:is(:hover, :active, :focus-visible)::before {
+    opacity: 1;
+  }
+
+  .fx-glow-btn:is(:hover, :active, :focus-visible) {
+    border-color: rgba(185, 166, 255, 0.72);
+    box-shadow:
+      0 10px 28px -4px rgba(86, 141, 235, 0.55),
+      0 5px 18px -2px rgba(117, 84, 217, 0.62),
+      0 0 0 1px rgba(185, 166, 255, 0.45);
+  }
+}
+
+/* Slow ambient floating motion for platform logos and decorative curves */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes waveDrift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.72;
+  }
+  50% {
+    transform: translate3d(-1.5%, -10px, 0) scale(1.03);
+    opacity: 0.92;
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-wave-drift {
+  animation: waveDrift 11s ease-in-out infinite;
+}
+
+/* Focus ring accessibility */
+:focus-visible {
+  outline: 2px solid #B9A6FF;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-float-slow,
+  .animate-wave-drift,
+  .animate-platform-marquee {
+    animation: none !important;
+  }
+}
